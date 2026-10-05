@@ -20,6 +20,10 @@ jobs:
           distribution: 'zulu'
           cache: 'gradle'
 
+      # 🔥 FIX STEP: Yeh command bina missing jar ke wrapper file automatic bana degi
+      - name: Generate Missing Gradle Wrapper
+        run: jar cfe gradle/wrapper/gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain -C . . || gradle wrapper --gradle-version 8.5
+
       - name: Grant Execute Permission for Gradlew
         run: chmod +x gradlew
 
