@@ -18,30 +18,24 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
-          cache: 'gradle'
 
-      # 🔥 FIX STEP 1: Agar nested directory hai, toh ye automatically wrapper configure kar dega
-      - name: Generate Missing Gradle Wrapper
-        run: |
-          if [ -d "BitChord-Prime" ]; then
-            cd BitChord-Prime && gradle wrapper --gradle-version 8.5 || true
-          else
-            gradle wrapper --gradle-version 8.5 || true
-          fi
+      # 🔥 FIX STEP 1: Yeh background automation plugin khud fresh, safe wrapper setup karega
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.5
 
-      # 🔥 FIX STEP 2: Automatic checking for exact build parameters inside folders
+      # 🔥 FIX STEP 2: Automatic folder navigation checking structure execution
       - name: Assemble Premium Debug APK
         run: |
           if [ -d "BitChord-Prime" ]; then
             cd BitChord-Prime
-            chmod +x gradlew
-            ./gradlew assembleDebug
+            gradle assembleDebug --no-daemon
           else
-            chmod +x gradlew
-            ./gradlew assembleDebug
+            gradle assembleDebug --no-daemon
           fi
 
-      # 🔥 FIX STEP 3: Flexible output path matrix mapping for artifacts
+      # 🔥 FIX STEP 3: Dynamic wildcard asset locator for generated binaries
       - name: Upload BitChord Premium APK
         uses: actions/upload-artifact@v4
         with:
