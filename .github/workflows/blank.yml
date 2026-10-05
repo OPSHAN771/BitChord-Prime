@@ -19,23 +19,23 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      # 🔥 FIX STEP 1: Yeh background automation plugin khud fresh, safe wrapper setup karega
+      # Safe wrapper automated initialization setup
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.5
 
-      # 🔥 FIX STEP 2: Automatic folder navigation checking structure execution
+      # Explicit modular configuration tracking inside the repository structure
       - name: Assemble Premium Debug APK
         run: |
           if [ -d "BitChord-Prime" ]; then
             cd BitChord-Prime
-            gradle assembleDebug --no-daemon
+            gradle :app:assembleDebug --no-daemon
           else
-            gradle assembleDebug --no-daemon
+            gradle :app:assembleDebug --no-daemon
           fi
 
-      # 🔥 FIX STEP 3: Dynamic wildcard asset locator for generated binaries
+      # Wildcard deployment locator for target binaries output files
       - name: Upload BitChord Premium APK
         uses: actions/upload-artifact@v4
         with:
