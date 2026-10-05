@@ -19,23 +19,23 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      # Safe wrapper automated initialization setup
+      # Safe automatic configuration setup
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.5
 
-      # Explicit modular configuration tracking inside the repository structure
+      # 🔥 FIX STEP: Yeh command bina direct submodule target checks ke full global modules compile karegi
       - name: Assemble Premium Debug APK
         run: |
           if [ -d "BitChord-Prime" ]; then
             cd BitChord-Prime
-            gradle :app:assembleDebug --no-daemon
+            gradle assemble --no-daemon || gradle :app:assemble --no-daemon
           else
-            gradle :app:assembleDebug --no-daemon
+            gradle assemble --no-daemon || gradle :app:assemble --no-daemon
           fi
 
-      # Wildcard deployment locator for target binaries output files
+      # Dynamic search module for output files
       - name: Upload BitChord Premium APK
         uses: actions/upload-artifact@v4
         with:
