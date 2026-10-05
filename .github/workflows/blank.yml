@@ -19,25 +19,32 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      # Safe automatic configuration configuration wrapper
+      # Step 1: Automatic safely Gradle framework wrapper bootstrapper
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.5
 
-      # 🔥 CORE PRIME FIX: Yeh target correct mapping evaluate karega repository ke root options ke hisab se
-      - name: Assemble Premium Debug APK
+      # Step 2: 🔥 ULTIMATE ROOT FINDER AND DYNAMIC TASK AGENT
+      # Yeh command pehle folder structure check karegi, fir dynamic task dhoondh kar run karegi.
+      - name: Locate Correct Module and Assemble Premium APK
         run: |
           if [ -d "BitChord-Prime" ]; then
             cd BitChord-Prime
-            chmod +x gradlew
-            ./gradlew :app:assembleDebug --no-daemon
+            chmod +x gradlew 2>/dev/null || true
+            echo "=== Listing Root Directory Tasks ==="
+            gradle tasks --no-daemon
+            echo "=== Starting Multiplatform Android Compilation ==="
+            gradle :app:assembleDebug --no-daemon || gradle assembleDebug --no-daemon || gradle assemble --no-daemon
           else
-            chmod +x gradlew
-            ./gradlew :app:assembleDebug --no-daemon
+            chmod +x gradlew 2>/dev/null || true
+            echo "=== Listing Root Directory Tasks ==="
+            gradle tasks --no-daemon
+            echo "=== Starting Multiplatform Android Compilation ==="
+            gradle :app:assembleDebug --no-daemon || gradle assembleDebug --no-daemon || gradle assemble --no-daemon
           fi
 
-      # Wildcard deployment locator for target binaries output files
+      # Step 3: Wildcard automated collector to grab the generated .apk file
       - name: Upload BitChord Premium APK
         uses: actions/upload-artifact@v4
         with:
